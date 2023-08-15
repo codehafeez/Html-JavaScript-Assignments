@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+<meta charset="UTF-8">
+<title>multiple image upload with preview and delete option</title>  
+<style>
+input[type="file"] {
+  display: block;
+}
+.imageThumb {
+  max-height: 75px;
+  border: 2px solid;
+  padding: 1px;
+  cursor: pointer;
+}
+.pip {
+  display: inline-block;
+  margin: 10px 10px 0 0;
+}
+.remove {
+  display: block;
+  background: #444;
+  border: 1px solid black;
+  color: white;
+  text-align: center;
+  cursor: pointer;
+}
+.remove:hover {
+  background: white;
+  color: black;
+}
+</style>
+</head>
+<body>
+
+<h3>Upload your images</h3>
+<input type="file" id="files" name="files[]" multiple />
+
+  
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+$(document).ready(function () {
+
+  var uploadImageLength = 0;
+
+    $("#files").on("change", function (e) {
+      var files = e.target.files,
+      filesLength = files.length;
+      for (var i = 0; i < filesLength; i++) 
+      {
+        if(uploadImageLength > 2){
+          alert('sorry you can not upload more than 3 images');
+        }
+        else {
+          uploadImageLength = uploadImageLength + 1;
+          var f = files[i];
+          var fileReader = new FileReader();
+          fileReader.onload = function (e) 
+          {
+            var file = e.target;
+            $("<span class=\"pip\">" +
+            "<img class=\"imageThumb\" src=\"" + e.target.result + "\" title=\"" + file.name + "\"/>" +
+            "<br/><span class=\"remove\">Remove image</span>" +
+            "</span>").insertAfter("#files");
+            $(".remove").click(function () {
+              $(this).parent(".pip").remove();
+              uploadImageLength = uploadImageLength - 1;
+            });
+          };
+          fileReader.readAsDataURL(f);          
+        }
+      }
+    });
+
+});
+  </script>
+</body>
+</html>
+ 

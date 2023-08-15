@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+<meta charset="UTF-8">
+<title>Grid Image Move</title>
+<style>
+.wrapper {
+  display: grid;
+  grid-template-columns: 120px 120px 120px;
+  grid-gap: 10px;
+  background-color: #fff;
+  color: #444;
+}
+
+.box {
+  background-color: #444;
+  color: #fff;
+  border-radius: 5px;
+  padding: 20px;
+  font-size: 150%;
+  cursor: grab;
+}
+
+.clearing {
+  background-color: blue;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 150%;
+}
+</style>
+</head>
+<body>
+<div class="wrapper" id="wrapper">
+  <div class="clearing" title="but I can be moved by moving others around me">Can't move me</div>
+  <div class="box a">A</div>
+  <div class="box b">B</div>
+  <div class="box c">C</div>
+  <div class="box d">D</div>
+  <div class="box e">E</div>
+  <div class="box f">F</div>
+</div>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.10.1/Sortable.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+<script>
+$(() => {
+  const wrapper = $("#wrapper")[0];
+  Sortable.create(wrapper, {
+    filter: '.clearing' 
+  });
+});
+</script>
+</body>
+</html>
+ 
